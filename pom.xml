@@ -8,6 +8,7 @@
     <artifactId>sigproxy</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>SMTP</module>
         <module>SMPP</module>
@@ -18,6 +19,4 @@
         <module>Publisher</module>
         <module>Web</module>
     </modules>
-
-
 </project>
