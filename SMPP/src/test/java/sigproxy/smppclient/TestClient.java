@@ -1,14 +1,22 @@
 package sigproxy.smppclient;
 
+import com.cloudhopper.commons.charset.CharsetUtil;
+import com.cloudhopper.commons.util.windowing.WindowFuture;
 import com.cloudhopper.smpp.SmppBindType;
 import com.cloudhopper.smpp.SmppServerConfiguration;
 import com.cloudhopper.smpp.SmppServerHandler;
 import com.cloudhopper.smpp.SmppServerSession;
+import com.cloudhopper.smpp.SmppSession;
 import com.cloudhopper.smpp.SmppSessionConfiguration;
 import com.cloudhopper.smpp.impl.DefaultSmppClient;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
 import com.cloudhopper.smpp.pdu.BaseBind;
 import com.cloudhopper.smpp.pdu.BaseBindResp;
+import com.cloudhopper.smpp.pdu.DeliverSm;
+import com.cloudhopper.smpp.pdu.DeliverSmResp;
+import com.cloudhopper.smpp.pdu.PduRequest;
+import com.cloudhopper.smpp.pdu.PduResponse;
+import com.cloudhopper.smpp.type.Address;
 import com.cloudhopper.smpp.type.SmppProcessingException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -71,5 +79,28 @@ public class TestClient {
         sslConfig.setTrustStorePassword("changeit");
         configuration.setUseSsl(true);
         configuration.setSslConfiguration(sslConfig);*/
+    }
+
+    void sendMessage(SmppSession session, String message) {
+
+        try {
+            byte[] textBytes = CharsetUtil.encode(message, CharsetUtil.CHARSET_UCS_2);
+
+            DeliverSm deliver = new DeliverSm();
+
+            deliver.setSourceAddress(new Address((byte)0x03, (byte)0x00, "40404"));
+            deliver.setDestAddress(new Address((byte)0x01, (byte)0x01, "44555519205"));
+            deliver.setShortMessage(textBytes);
+
+            WindowFuture<Integer, PduRequest, PduResponse> future = session.sendRequestPdu(deliver, 10000, false);
+            if (!future.await()) {
+                log.error("Failed to receive deliver_sm_resp within specified time");
+            } else if (future.isSuccess()) {
+                DeliverSmResp deliverSmResp = (DeliverSmResp)future.getResponse();
+                log.info("deliver_sm_resp: commandStatus [" + deliverSmResp.getCommandStatus() + "=" + deliverSmResp.getResultMessage() + "]");
+            } else {
+                log.error("Failed to properly receive deliver_sm_resp: " + future.getCause());
+            }
+        } catch (Exception e) {}
     }
 }
