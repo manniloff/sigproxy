@@ -81,7 +81,7 @@ public class ClounhopperController {
                 log.info("Creating a new configuration");
                 return new ResponseEntity<>("Created",HttpStatus.CREATED);
             }
-            return new ResponseEntity<>("Configuration with name - " + newSessionConfig.getConfigName() + ", exists! Change configuration name and try again.", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Configuration with name - " + newSessionConfig.getConfig().getName() + ", exists! Change configuration name and try again.", HttpStatus.CONFLICT);
         } catch (Exception e) {
             log.error("Exception on creating a configuration: ", e);
             return new ResponseEntity<>("No Content", HttpStatus.NO_CONTENT);

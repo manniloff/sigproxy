@@ -28,11 +28,11 @@ public class SMPPSessionConfigServiceImpl implements SMPPSessionConfigService {
 
     @Override
     public int create(SMPPSessionConfig newSMPPSessionConfig) {
-        sessionConfigRepository.findByConfigName(newSMPPSessionConfig.getConfigName())
+        sessionConfigRepository.findByConfigName(newSMPPSessionConfig.getConfig().getName())
                                .ifPresent(config -> {
-                                   log.error("Config with name {} exists, try again", config.getConfigName());
+                                   log.error("Config with name {} exists, try again", config.getConfig().getName());
                                    throw new RuntimeException("Configuration with " + config
-                                           .getConfigName() + " exists, change configuration name and try again");
+                                           .getConfig().getName() + " exists, change configuration name and try again");
                                });
 
         return sessionConfigRepository.save(newSMPPSessionConfig).getId();
@@ -42,7 +42,6 @@ public class SMPPSessionConfigServiceImpl implements SMPPSessionConfigService {
     public Optional<SMPPSessionConfig> update(SMPPSessionConfig updatedSMPPSessionConfig, int id) {
         sessionConfigRepository.findById(id)
                                .map(config -> {
-                                   config.setConfigName(updatedSMPPSessionConfig.getConfigName());
                                    config.setConfig(updatedSMPPSessionConfig.getConfig());
                                    return Optional.of(sessionConfigRepository.save(config));
                                }).orElseThrow(() -> new RuntimeException("No Content"));
