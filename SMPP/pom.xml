@@ -10,19 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>SMPP</artifactId>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.cloudhopper/ch-smpp -->
@@ -63,19 +50,19 @@
             <version>30.1-jre</version>
         </dependency>
         <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
+            <groupId>com.graphql-java</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>5.0.5</version>
+            <version>5.0.2</version>
         </dependency>
         <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
+            <groupId>com.graphql-java</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
-            <version>5.0.5</version>
+            <version>5.0.2</version>
         </dependency>
         <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
+            <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java-tools</artifactId>
-            <version>5.3.4</version>
+            <version>5.2.4</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -83,4 +70,21 @@
             <version>2.11.3</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

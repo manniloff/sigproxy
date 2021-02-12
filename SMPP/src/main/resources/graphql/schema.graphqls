@@ -1,0 +1,42 @@
+schema {
+    query: Query
+}
+
+enum SmppBindType {
+    TRANSCEIVER,
+    TRANSMITTER,
+    RECEIVER
+}
+
+type Address {
+    ton: Int
+    npi: Int
+    address: String
+}
+
+type SMPPSessionConfigDto {
+    id: Int
+    name: String!
+    windowSize: Int
+    type: SmppBindType
+    systemId: String
+    password: String
+    systemType: String
+    interfaceVersion: Int
+    addressRange: Address
+    bindTimeout: Int
+    windowWaitTimeout: Int
+    requestExpiryTimeout: Int
+    windowMonitorInterval: Int
+    countersEnabled: Boolean
+}
+
+#type SMPPSessionConfig {
+ #   id: ID!
+#    config: SmppSessionConfiguration
+#}
+
+# All available queries on this grapql server
+type Query {
+    findAll:[SMPPSessionConfigDto]
+}
