@@ -1,22 +1,21 @@
 package sigproxy.smpp.server.dto;
 
 import com.cloudhopper.smpp.SmppBindType;
-import com.cloudhopper.smpp.type.Address;
 import graphql.schema.GraphQLInputType;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.data.annotation.Id;
+import lombok.NoArgsConstructor;
 
-@Value
-@Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class SMPPSessionConfigDto {
+public class SMPPSessionConfigDtoInput  implements GraphQLInputType {
+    @Override
+    public String getName() {
+        return "SMPPSessionConfig Input type";
+    }
 
     private int id;
     private String name;
@@ -26,7 +25,7 @@ public class SMPPSessionConfigDto {
     private String password;
     private String systemType;
     private byte interfaceVersion;
-    private Address addressRange;
+    private AddressInput addressRange;
     private long bindTimeout;
     private long windowWaitTimeout;
     private long requestExpiryTimeout;
