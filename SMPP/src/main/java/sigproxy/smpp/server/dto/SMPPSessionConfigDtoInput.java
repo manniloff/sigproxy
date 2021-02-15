@@ -31,4 +31,5 @@ public class SMPPSessionConfigDtoInput  implements GraphQLInputType {
     private long requestExpiryTimeout;
     private long windowMonitorInterval;
     private boolean countersEnabled;
+    private boolean active;
 }

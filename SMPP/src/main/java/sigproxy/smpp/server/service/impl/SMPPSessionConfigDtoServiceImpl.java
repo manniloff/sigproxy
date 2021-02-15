@@ -49,7 +49,8 @@ public class SMPPSessionConfigDtoServiceImpl implements SMPPSessionConfigDtoServ
                                                                     .windowWaitTimeout(smppSessionConfigDtoInput.getWindowWaitTimeout())
                                                                     .requestExpiryTimeout(smppSessionConfigDtoInput.getRequestExpiryTimeout())
                                                                     .windowMonitorInterval(smppSessionConfigDtoInput.getWindowMonitorInterval())
-                                                                    .countersEnabled(smppSessionConfigDtoInput.isCountersEnabled()).build();
+                                                                    .countersEnabled(smppSessionConfigDtoInput.isCountersEnabled())
+                                                                    .active(smppSessionConfigDtoInput.isActive()).build();
         return sessionConfigRepository.save(sessionConfigDto);
     }
 
@@ -70,7 +71,8 @@ public class SMPPSessionConfigDtoServiceImpl implements SMPPSessionConfigDtoServ
                                          .windowWaitTimeout(updatedSMPPSessionConfig.getWindowWaitTimeout())
                                          .requestExpiryTimeout(updatedSMPPSessionConfig.getRequestExpiryTimeout())
                                          .windowMonitorInterval(updatedSMPPSessionConfig.getWindowMonitorInterval())
-                                         .countersEnabled(updatedSMPPSessionConfig.isCountersEnabled()).build();
+                                         .countersEnabled(updatedSMPPSessionConfig.isCountersEnabled())
+                                         .active(updatedSMPPSessionConfig.isActive()).build();
                                    return Optional.of(sessionConfigRepository.save(config));
                                }).orElseThrow(() -> new RuntimeException("No Content"));
         return Optional.empty();

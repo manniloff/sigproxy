@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sigproxy.smpp.server.client.Client;
+import sigproxy.smpp.server.client.ClientService;
 import sigproxy.smpp.server.model.SMPPSessionConfig;
 import sigproxy.smpp.server.server.Server;
 import sigproxy.smpp.server.service.SMPPSessionConfigService;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @Slf4j
 public class ClounhopperController {
     private final SMPPSessionConfigService smppSessionConfigService;
+    private final ClientService clientService;
 
     @GetMapping(value = "/server/start")
     ResponseEntity<?> startServer() throws SmppChannelException {
@@ -45,6 +47,18 @@ public class ClounhopperController {
             log.info("Get list of configurations");
             Client.createClient();
             return ResponseEntity.ok("Client Started");
+        } catch (Exception e) {
+            log.error("Exception on getting configurations: ", e.getMessage());
+            return new ResponseEntity<>("No Content", HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @GetMapping(value = "/clients/start")
+    ResponseEntity<?> startClients() {
+        try{
+            log.info("Get list of configurations");
+            long count = clientService.createClient();
+            return ResponseEntity.ok("Were started "+ count + " clients");
         } catch (Exception e) {
             log.error("Exception on getting configurations: ", e.getMessage());
             return new ResponseEntity<>("No Content", HttpStatus.NO_CONTENT);

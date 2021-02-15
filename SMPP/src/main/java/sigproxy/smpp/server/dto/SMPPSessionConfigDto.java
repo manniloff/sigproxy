@@ -32,4 +32,5 @@ public class SMPPSessionConfigDto {
     private long requestExpiryTimeout;
     private long windowMonitorInterval;
     private boolean countersEnabled;
+    private boolean active;
 }

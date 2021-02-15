@@ -37,6 +37,7 @@ type SMPPSessionConfigDto {
     requestExpiryTimeout: Int
     windowMonitorInterval: Int
     countersEnabled: Boolean
+    active: Boolean
 }
 
 input SMPPSessionConfigDtoInput {
@@ -54,6 +55,7 @@ input SMPPSessionConfigDtoInput {
     requestExpiryTimeout: Int
     windowMonitorInterval: Int
     countersEnabled: Boolean
+    active: Boolean
 }
 
 # All available queries on this grapql server

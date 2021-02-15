@@ -35,13 +35,7 @@ public class Server {
                 BindTransceiverResp pduResponse = new BindTransceiverResp();
                 pduResponse.setCommandStatus(0);
                 smppServerSession.sendResponsePdu(pduResponse);
-            } catch (RecoverablePduException e) {
-                e.printStackTrace();
-            } catch (UnrecoverablePduException e) {
-                e.printStackTrace();
-            } catch (SmppChannelException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (RecoverablePduException | UnrecoverablePduException | SmppChannelException | InterruptedException e) {
                 e.printStackTrace();
             }
         }

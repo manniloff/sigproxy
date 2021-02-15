@@ -43,7 +43,8 @@ public class SMPPSessionConfigResolver implements GraphQLQueryResolver, GraphQLM
                                        .windowWaitTimeout(data.getWindowWaitTimeout())
                                        .requestExpiryTimeout(data.getRequestExpiryTimeout())
                                        .windowMonitorInterval(data.getWindowMonitorInterval())
-                                       .countersEnabled(data.isCountersEnabled()).build();
+                                       .countersEnabled(data.isCountersEnabled())
+                                       .active(data.isActive()).build();
         }).collect(Collectors.toList());
     }
 
@@ -65,7 +66,8 @@ public class SMPPSessionConfigResolver implements GraphQLQueryResolver, GraphQLM
                                        .windowWaitTimeout(data.getWindowWaitTimeout())
                                        .requestExpiryTimeout(data.getRequestExpiryTimeout())
                                        .windowMonitorInterval(data.getWindowMonitorInterval())
-                                       .countersEnabled(data.isCountersEnabled()).build();
+                                       .countersEnabled(data.isCountersEnabled())
+                                       .active(data.isActive()).build();
         }).orElseThrow(() -> new RuntimeException("No Content"));
     }
 
