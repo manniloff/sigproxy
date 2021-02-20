@@ -1,4 +1,4 @@
-package sigproxy.smpp.server;
+package sigproxy.smpp;
 
 import com.cloudhopper.smpp.SmppServerConfiguration;
 import com.cloudhopper.smpp.SmppServerHandler;
