@@ -17,6 +17,7 @@
         <module>Core</module>
         <module>Publisher</module>
         <module>Web</module>
+        <module>eureka-naming-server</module>
     </modules>
 
 

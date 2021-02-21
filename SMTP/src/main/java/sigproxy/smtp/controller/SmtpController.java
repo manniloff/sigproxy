@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/rest")
+@RequestMapping("/smtp")
 public class SmtpController {
     @GetMapping(value = {"","/"}, produces = "application/json")
     ResponseEntity<?> testConnection() {

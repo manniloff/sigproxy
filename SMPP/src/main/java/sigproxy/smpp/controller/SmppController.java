@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/smpp")
 public class SmppController {
-    @GetMapping(value = {"", "/"}, produces = "application.json")
+    @GetMapping(value = {"", "/"}, produces = "application/json")
     ResponseEntity<?> testConnection() {
         return ResponseEntity.ok("Connected with Smpp");
     }
