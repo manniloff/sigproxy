@@ -1,0 +1,75 @@
+schema {
+    query: Query,
+    mutation: Mutation,
+    subscription: Subscription
+}
+
+enum SmppBindType {
+    TRANSCEIVER,
+    TRANSMITTER,
+    RECEIVER
+}
+
+type Address {
+    ton: Int
+    npi: Int
+    address: String
+}
+
+input AddressInput {
+    ton: Int
+    npi: Int
+    address: String
+}
+
+type SMPPSessionConfigDto {
+    id: Int
+    name: String!
+    windowSize: Int
+    type: SmppBindType
+    systemId: String
+    password: String
+    systemType: String
+    interfaceVersion: Int
+    addressRange: Address
+    bindTimeout: Int
+    windowWaitTimeout: Int
+    requestExpiryTimeout: Int
+    windowMonitorInterval: Int
+    countersEnabled: Boolean
+    active: Boolean
+}
+
+input SMPPSessionConfigDtoInput {
+    id: Int
+    name: String!
+    windowSize: Int
+    type: SmppBindType
+    systemId: String
+    password: String
+    systemType: String
+    interfaceVersion: Int
+    addressRange: AddressInput
+    bindTimeout: Int
+    windowWaitTimeout: Int
+    requestExpiryTimeout: Int
+    windowMonitorInterval: Int
+    countersEnabled: Boolean
+    active: Boolean
+}
+
+# All available queries on this grapql server
+type Query {
+    findAll:[SMPPSessionConfigDto],
+    findById(id: Int):SMPPSessionConfigDto,
+    deleteById(id: Int): String
+}
+
+type Mutation {
+    create(newSMPPSessionConfigDto: SMPPSessionConfigDtoInput): Int,
+    update(updateSMPPSessionConfigDto: SMPPSessionConfigDtoInput, id: Int): Int
+}
+
+type Subscription {
+    onSMPPSessionConfigDtoUpdate(id: Int): SMPPSessionConfigDto
+}
