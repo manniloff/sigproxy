@@ -5,6 +5,7 @@ import com.cloudhopper.smpp.SmppServerHandler;
 import com.cloudhopper.smpp.SmppServerSession;
 import com.cloudhopper.smpp.SmppSessionConfiguration;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
+import com.cloudhopper.smpp.impl.DefaultSmppSessionHandler;
 import com.cloudhopper.smpp.pdu.BaseBind;
 import com.cloudhopper.smpp.pdu.BaseBindResp;
 import com.cloudhopper.smpp.pdu.BindTransceiverResp;
@@ -32,19 +33,16 @@ public class Server {
                 throws SmppProcessingException {
             log.info("sessionCreated");
             try {
+                smppServerSession.serverReady(new SmppSessionHandlerImpl());
                 BindTransceiverResp pduResponse = new BindTransceiverResp();
                 pduResponse.setCommandStatus(0);
+
                 smppServerSession.sendResponsePdu(pduResponse);
-            } catch (RecoverablePduException e) {
-                e.printStackTrace();
-            } catch (UnrecoverablePduException e) {
-                e.printStackTrace();
-            } catch (SmppChannelException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (RecoverablePduException | UnrecoverablePduException | SmppChannelException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
 
         public void sessionDestroyed(Long aLong, SmppServerSession smppServerSession) {
             log.info("sessionDestroyed");
@@ -66,7 +64,6 @@ public class Server {
         DefaultSmppServer smppServer = new DefaultSmppServer(configuration, SERVER_HANDLER);
 
         log.info("Starting SMPP server...");
-
         smppServer.start();
         log.info("SMPP server started");
         //ssl

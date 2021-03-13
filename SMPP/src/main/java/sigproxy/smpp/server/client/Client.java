@@ -43,7 +43,7 @@ public class Client {
 
             System.out.println("Try to send message");
 
-            session.submit(sm, TimeUnit.SECONDS.toMillis(2));
+            session.submit(sm, TimeUnit.SECONDS.toMillis(10));
 
             System.out.println("Message sent");
 
